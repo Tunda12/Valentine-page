@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abigael 💕 Valentine is Coming</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(160deg,#ff9a9e,#fad0c4,#fbc2eb);
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+}
+
+/* Floating photos */
+.photo{
+  position:absolute;
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,0.7);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+.photo.one{ top:10px; left:10px; }
+.photo.two{ top:10px; right:10px; }
+.photo.three{ bottom:10px; left:50%; transform:translateX(-50%); }
+
+/* Card */
+.card{
+  background:rgba(255,255,255,0.25);
+  backdrop-filter:blur(14px);
+  padding:35px 25px;
+  border-radius:30px;
+  max-width:500px;
+  width:95%;
+  text-align:center;
+  color:#3a003a;
+  box-shadow:0 25px 60px rgba(0,0,0,0.25);
+  z-index:1;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:2.2em;
+  margin-bottom:10px;
+}
+
+p{
+  font-size:1.05em;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+
+.soft{
+  font-size:0.95em;
+  font-style:italic;
+  opacity:0.85;
+}
+
+button{
+  margin:12px 8px;
+  padding:12px 30px;
+  border:none;
+  border-radius:40px;
+  font-size:1em;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.yes{
+  background:linear-gradient(135deg,#ff4b7d,#ff85a2);
+  color:white;
+  box-shadow:0 8px 25px rgba(255,75,125,0.45);
+}
+
+.no{
+  background:#555;
+  color:white;
+}
+
+button:hover{
+  transform:scale(1.12);
+}
+
+#response{
+  margin-top:18px;
+  font-size:1.2em;
+  font-weight:500;
+  min-height:60px;
+  position:relative;
+  z-index:2;
+}
+
+/* Bloom flower */
+.flower{
+  font-size:50px;
+  animation:bloom 1.4s ease forwards;
+}
+
+@keyframes bloom{
+  from{transform:scale(0);opacity:0;}
+  to{transform:scale(1);opacity:1;}
+}
+
+/* Falling flowers */
+.falling-flower{
+  position:fixed;
+  font-size:28px;
+  animation: fall 4s linear forwards;
+  pointer-events:none;
+  z-index:999;
+}
+
+@keyframes fall{
+  from{transform:translateY(-50px) rotate(0deg);opacity:1;}
+  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+}
+
+/* Name pop */
+.name-pop{
+  position:fixed;
+  font-size:2em;
+  font-weight:700;
+  color:#ff2f6d;
+  animation: popFade 3s ease forwards;
+  z-index:999;
+  pointer-events:none;
+}
+
+@keyframes popFade{
+  0%{transform:scale(0);opacity:0;}
+  30%{transform:scale(1.2);opacity:1;}
+  100%{transform:scale(1);opacity:0;}
+}
+
+/* Music button */
+#musicBtn{
+  position:fixed;
+  bottom:15px;
+  right:15px;
+  background:#ff4b7d;
+  color:white;
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  z-index:1000;
+}
+
+/* Responsive for phones and tablets */
+@media (max-width:480px){
+  .card{ padding:20px; width:95%; }
+  h1{ font-size:1.6em; }
+  p{ font-size:0.95em; line-height:1.4; }
+  .photo{ width:50px; height:50px; }
+  button{ padding:10px 18px; font-size:0.9em; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Images -->
+<img src="images/abi1.jpeg" class="photo one">
+<img src="images/abi2.jpeg" class="photo two">
+<img src="images/abi3.jpeg" class="photo three">
+
+<div class="card">
+  <h1>Abigael 💕 Valentine 🌷 Is Coming</h1>
+
+  <p>
+    There are people who enter your life loudly,
+    and there are people who arrive softly and somehow stay forever.
+    You are the second kind.
+  </p>
+
+  <p>
+    You carry a quiet magic — the kind that makes moments lighter,
+    smiles easier, and hearts feel safe without explanation.
+  </p>
+
+  <p>
+    I don’t admire you loudly.
+    I admire you gently — the way one protects something sacred.
+  </p>
+
+  <p class="soft">
+    “Love bears all things, believes all things,
+    hopes all things, endures all things.” — 1 Corinthians 13:7
+  </p>
+
+  <p style="font-size:1.25em;font-weight:500;">
+    Abigael 💕, will you be my Valentine?
+  </p>
+
+  <button class="yes" onclick="yesAnswer()">Yes 💕</button>
+  <button class="no" onclick="noAnswer()">No</button>
+
+  <div id="response"></div>
+</div>
+
+<!-- Music button -->
+<button id="musicBtn" onclick="toggleMusic()">Play Music 🎵</button>
+<audio id="music" src="music.mp3" loop></audio>
+
+<script>
+let noTap = 0;
+let musicPlaying = false;
+
+function yesAnswer(){
+  document.getElementById('response').innerHTML =
+    '<div class="flower">🌸</div>Somewhere between this moment and forever,<br>my heart just chose you 💖';
+  flowerRain(50);
+  showFrankline(5);
+  sendChoice('YES');
+}
+
+function noAnswer() {
+    noTap++;
+    const response = document.getElementById('response'); // <-- inside the function
+
+    if(noTap === 1){
+        response.innerHTML = 'Are you sure, Abigael? 🌧️';
+    } else {
+        response.innerHTML = 'Even unanswered, this feeling remains gentle 🌹';
+        sendChoice('NO');
+    }
+}
+
+
+function flowerRain(count){
+  const flowers=['🌸','🌷','🌹','💐','🌺'];
+  for(let i=0;i<count;i++){
+    const f=document.createElement('div');
+    f.className='falling-flower';
+    f.innerText=flowers[Math.floor(Math.random()*flowers.length)];
+    f.style.left=Math.random()*100+'vw';
+    f.style.animationDelay=Math.random()*2+'s';
+    f.style.fontSize=(20 + Math.random()*30)+'px';
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),4000);
+  }
+}
+
+function showFrankline(times){
+  for(let i=0;i<times;i++){
+    setTimeout(()=>{
+      const name=document.createElement('div');
+      name.className='name-pop';
+      name.innerText='Frankline 💖';
+      name.style.top=Math.random()*70+'vh';
+      name.style.left=Math.random()*60+'vw';
+      document.body.appendChild(name);
+      setTimeout(()=>name.remove(),3000);
+    }, i * 500);
+  }
+}
+
+function sendChoice(choice){
+  fetch('https://formspree.io/f/mojnqgrq',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      name:'Abigael',
+      choice:choice,
+      time:new Date().toLocaleString()
+    })
+  });
+}
+
+// Music toggle
+function toggleMusic(){
+  const music=document.getElementById('music');
+  if(!musicPlaying){
+    music.play();
+    musicPlaying=true;
+    document.getElementById('musicBtn').innerText='Pause Music 🎵';
+  } else {
+    music.pause();
+    musicPlaying=false;
+    document.getElementById('musicBtn').innerText='Play Music 🎵';
+  }
+}
+</script>
+
+</body>
+</html>
