@@ -19,7 +19,6 @@ body{
   overflow:hidden;
 }
 
-/* Floating photos */
 .photo{
   position:absolute;
   width:95px;
@@ -34,7 +33,6 @@ body{
 .photo.two{ top:20px; right:20px; }
 .photo.three{ bottom:25px; left:50%; transform:translateX(-50%); }
 
-/* Card */
 .card{
   background:rgba(255,255,255,0.25);
   backdrop-filter:blur(14px);
@@ -44,7 +42,6 @@ body{
   width:94%;
   text-align:center;
   color:#3a003a;
-  box-shadow:0 25px 60px rgba(0,0,0,0.25);
 }
 
 h1{
@@ -95,9 +92,10 @@ button:hover{
   font-size:1.2em;
   font-weight:500;
   min-height:70px;
+  position:relative;
+  z-index:2;
 }
 
-/* Bloom flower */
 .flower{
   font-size:60px;
   animation:bloom 1.4s ease forwards;
@@ -108,7 +106,6 @@ button:hover{
   to{transform:scale(1);opacity:1;}
 }
 
-/* Falling flowers */
 .falling-flower{
   position:fixed;
   font-size:32px;
@@ -122,7 +119,6 @@ button:hover{
   to{transform:translateY(110vh) rotate(360deg);opacity:0;}
 }
 
-/* Name pop */
 .name-pop{
   position:fixed;
   font-size:2.2em;
@@ -143,43 +139,19 @@ button:hover{
 
 <body>
 
-<!-- Images -->
 <img src="images/abi1.jpeg" class="photo one">
 <img src="images/abi2.jpeg" class="photo two">
 <img src="images/abi3.jpeg" class="photo three">
 
 <div class="card">
-  <h1> Abigael💕Valentine🌷is🌷Coming 🌷</h1>
-
-  <p>
-    There are people who enter your life loudly,
-    and there are people who arrive softly and somehow stay forever.
-    You are the second kind.
-  </p>
-
-  <p>
-    You carry a quiet magic — the kind that makes moments lighter,
-    smiles easier, and hearts feel safe without explanation.
-    Being near you feels like peace choosing me.
-  </p>
-
-  <p>
-    I don’t admire you loudly.
-    I admire you gently — the way one protects something sacred.
-  </p>
-
-  <p class="soft">
-    “Love bears all things, believes all things,
-    hopes all things, endures all things.” — 1 Corinthians 13:7
-  </p>
-
-  <p style="font-size:1.25em;font-weight:500;">
-    Abigael 💕, will you be my Valentine?
-  </p>
-
+  <h1>Abigael 💕 Valentine 🌷 is Coming</h1>
+  <p>There are people who enter your life loudly, and there are people who arrive softly and somehow stay forever. You are the second kind.</p>
+  <p>You carry a quiet magic — the kind that makes moments lighter, smiles easier, and hearts feel safe without explanation. Being near you feels like peace choosing me.</p>
+  <p>I don’t admire you loudly. I admire you gently — the way one protects something sacred.</p>
+  <p class="soft">“Love bears all things, believes all things, hopes all things, endures all things.” — 1 Corinthians 13:7</p>
+  <p style="font-size:1.25em;font-weight:500;">Abigael 💕Babe , will you be my Valentine?</p>
   <button class="yes" onclick="yesAnswer()">Yes 💕</button>
   <button class="no" onclick="noAnswer()">No</button>
-
   <div id="response"></div>
 </div>
 
@@ -188,48 +160,47 @@ let noTap = 0;
 
 function yesAnswer(){
   document.getElementById('response').innerHTML =
-    '<div class="flower">🌸</div>' +
-    'Somewhere between this moment and forever,<br>my heart just chose you 💖';
-
-  flowerRain();
-  showFrankline();
+    '<div class="flower">🌸</div>Somewhere between this moment and forever,<br>my heart just chose you 💖';
+  flowerRain(50);
+  showFrankline(5);
   sendChoice('YES');
 }
 
 function noAnswer(){
   noTap++;
   if(noTap === 1){
-    document.getElementById('response').innerHTML =
-      'Are you sure, Abigael? 🌧️';
+    document.getElementById('response').innerHTML = 'Are you sure, Abigael? 🌧️';
   } else {
-    document.getElementById('response').innerHTML =
-      'Even unanswered, this feeling remains gentle🌹';
-    sendChoice("YES");
+    document.getElementById('response').innerHTML = 'Even unanswered, this feeling remains gentle 🌹';
+    sendChoice('NO');
   }
 }
 
-function flowerRain(){
+function flowerRain(count){
   const flowers = ['🌸','🌷','🌹','💐','🌺'];
-  for(let i=0;i<40;i++){
+  for(let i=0;i<count;i++){
     const f = document.createElement('div');
     f.className = 'falling-flower';
     f.innerText = flowers[Math.floor(Math.random()*flowers.length)];
     f.style.left = Math.random()*100 + 'vw';
     f.style.animationDelay = Math.random()*2 + 's';
+    f.style.fontSize = (20+Math.random()*30) + 'px';
     document.body.appendChild(f);
     setTimeout(()=>f.remove(),4000);
   }
 }
 
-function showFrankline(){
-  for(let i=0;i<3;i++){
-    const name = document.createElement('div');
-    name.className = 'name-pop';
-    name.innerText = 'Thank you Mamah💖';
-    name.style.top = Math.random()*70 + 'vh';
-    name.style.left = Math.random()*60 + 'vw';
-    document.body.appendChild(name);
-    setTimeout(()=>name.remove(),3000);
+function showFrankline(times){
+  for(let i=0;i<times;i++){
+    setTimeout(()=>{
+      const name = document.createElement('div');
+      name.className = 'name-pop';
+      name.innerText = 'Abbyline 💖';
+      name.style.top = Math.random()*70 + 'vh';
+      name.style.left = Math.random()*60 + 'vw';
+      document.body.appendChild(name);
+      setTimeout(()=>name.remove(),3000);
+    }, i*500); // pop every 0.5s
   }
 }
 
@@ -248,3 +219,4 @@ function sendChoice(choice){
 
 </body>
 </html>
+
